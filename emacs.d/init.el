@@ -19,13 +19,14 @@
 ;; flycheck
 (use-package flycheck
   :config
-  (when (locate-library "flycheck-irony")
-    (flycheck-irony-setup))
+  ;;(when (locate-library "flycheck-irony")
+  ;;  (flycheck-irony-setup))
   (global-flycheck-mode t)
   )
 
 ;; irony
 (use-package irony
+  :disabled t
   :commands irony-mode
   :config
   (custom-set-variables '(irony-additional-clang-options '("-std=c++17")))
@@ -33,6 +34,15 @@
   (add-hook 'c-mode-common-hook 'irony-mode)
   )
 
+;; lsp-mode
+(use-package lsp-mode
+  :hook ((python-mode c++-mode) . lsp)
+  :commands lsp
+  :config
+  (setq lsp-prefer-flymake nil)
+  (setq lsp-clients-clangd-executable "clangd-6.0")
+  )
+(use-package lsp-ui :commands lsp-ui-mode)
 
 ;;; 個別環境用設定の読み込み
 (condition-case err
