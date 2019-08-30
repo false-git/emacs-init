@@ -62,10 +62,30 @@
 
 ;; gtags
 (use-package gtags
+  :disabled t
   :commands gtags-mode
   :config
   (add-hook 'c-mode-common-hook 'gtags-mode)
   )
+
+;; rtags
+(use-package rtags
+  :hook (c++-mode . rtags-start-process-unless-running)
+  :config
+  (rtags-enable-standard-keybindings)
+  (setq rtags-completions-enabled t)
+  (add-to-list 'company-backends 'company-rtags)
+  (bind-keys :map c-mode-base-map
+             ("M-." . rtags-find-symbol-at-point)
+             ("M-," . rtags-location-stack-back)
+             ("C--" . rtags-find-references-at-point)
+             ("M-;" . rtags-find-file)
+             ("C-." . rtags-find-symbol)
+             ("C-," . rtags-find-references)
+             ("C-<" . rtags-find-virtuals-at-point)
+             ("M-i" . rtags-imenu))
+  )
+
 
 ;;; 個別環境用設定の読み込み
 (condition-case err
