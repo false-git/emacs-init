@@ -44,6 +44,22 @@
   )
 (use-package lsp-ui :commands lsp-ui-mode)
 
+;; company
+(use-package company
+  :config
+  (global-company-mode t)
+  (global-set-key (kbd "<C-tab>") 'company-complete)
+  (bind-keys :map company-active-map
+             ("C-n" . company-select-next)
+             ("C-p" . company-select-previous))
+  (bind-keys :map company-search-map
+             ("C-n" . company-select-next)
+             ("C-p" . company-select-previous))
+  (bind-keys :map company-active-map
+             ("<tab>" . company-complete-selection))
+  )
+(use-package company-lsp :commands company-lsp)
+
 ;;; 個別環境用設定の読み込み
 (condition-case err
     (load-file "$HOME/.emacs.d/init-local.el"))
