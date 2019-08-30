@@ -60,6 +60,13 @@
   )
 (use-package company-lsp :commands company-lsp)
 
+;; gtags
+(use-package gtags
+  :commands gtags-mode
+  :config
+  (add-hook 'c-mode-common-hook 'gtags-mode)
+  )
+
 ;;; 個別環境用設定の読み込み
 (condition-case err
     (load-file "$HOME/.emacs.d/init-local.el"))
