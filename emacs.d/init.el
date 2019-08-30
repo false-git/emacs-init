@@ -10,9 +10,16 @@
 
 ;;; flymake
 (use-package flymake
+  :disabled t
   :init
   (add-hook 'c-mode-common-hook 'flymake-mode)
   :commands flymake-mode
+  )
+
+;; flycheck
+(use-package flycheck
+  :config
+  (global-flycheck-mode t)
   )
 
 
