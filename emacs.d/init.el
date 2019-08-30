@@ -19,7 +19,18 @@
 ;; flycheck
 (use-package flycheck
   :config
+  (when (locate-library "flycheck-irony")
+    (flycheck-irony-setup))
   (global-flycheck-mode t)
+  )
+
+;; irony
+(use-package irony
+  :commands irony-mode
+  :config
+  (custom-set-variables '(irony-additional-clang-options '("-std=c++17")))
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  (add-hook 'c-mode-common-hook 'irony-mode)
   )
 
 
